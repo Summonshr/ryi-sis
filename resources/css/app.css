@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    @apply py-1 px-4 rounded-md;
+}
+
+.btn-create {
+    @apply bg-indigo-900 hover:bg-blue-700 uppercase text-white;
+}
+
+.a-edit {
+    @apply text-indigo-600 hover:text-indigo-900;
+}
+
+.btn-edit {
+    @apply bg-blue-900 hover:bg-blue-700 uppercase text-white;
+}
+
+.table {
+    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+}
+
+.table table {
+    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+}
+
+.table table thead {
+    @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
+}
+
+.table table thead th {
+    @apply px-6 py-3;
+}
+
+.table table thead span {
+    @apply sr-only;
+}
+
+.table tbody tr {
+    @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600;
+}
+
+.table tbody tr td {
+    @apply w-32 p-4;
+}
+
+.text-field {
+    @apply block min-h-[auto] w-full rounded bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all
+    duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100
+    motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200
+    [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0;
+}
