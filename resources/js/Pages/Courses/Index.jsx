@@ -3,19 +3,19 @@ import NavLink from '@/Components/NavLink';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard(props) {
+export default function Dashboard({ auth, errors, data }) {
     return (
         <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
+            auth={auth}
+            errors={errors}
             active="courses"
         >
             <div className="flex flex-wrap justify-end mb-4">
                 <div>
-                    <NavLink className='create-btn' href={route('dashboard', ['courses', 'create'])} >Create</NavLink>
+                    {auth.permissions.includes('create-courses') && <NavLink className='create-btn' href={route('taxonomy.get', ['courses', 'create'])} >Create</NavLink>}
                 </div>
             </div>
-            <Table data={props.data} className="table">
+            <Table data={data} className="table">
                 <thead>
                     <th>ID</th>
                     <th>Name</th>
@@ -24,20 +24,20 @@ export default function Dashboard(props) {
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    {props.data.data.map((course) => (
+                    {data.data.map((course) => (
                         <tr key={course.id}>
                             <td>{course.id}</td>
                             <td>{course.name}</td>
                             <td>{course.description}</td>
                             <td>{course.remarks}</td>
                             <td>
-                                <NavLink className='a-edit' href={route('dashboard', ['courses', 'edit', course.id])} > Edit</NavLink>
-                                <NavLink className='text-red-600' onClick={(e) => {
+                                {auth.permissions.includes('edit-courses') && <NavLink className='a-edit' href={route('taxonomy.get', ['courses', 'edit', course.id])} > Edit</NavLink>}
+                                {auth.permissions.includes('delete-courses') && <NavLink className='text-red-600' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this course?')) {
-                                        router.post('/taxonomy/courses/' + course.id, { action: 'destroy' })
+                                        router.post('/taxonomy/courses/' + course.id, { action: 'delete' })
                                     }
-                                }} > Delete</NavLink>
+                                }} > Delete</NavLink>}
                             </td>
                         </tr>
                     ))}

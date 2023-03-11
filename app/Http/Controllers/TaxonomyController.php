@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class TaxonomyController extends Controller
 {
-    public function index(TaxonomyInterface $model)
+    public function index(TaxonomyRequest $request, TaxonomyInterface $model)
     {
         $meta = [
             'seasons' => Season::all()
@@ -25,10 +25,10 @@ class TaxonomyController extends Controller
     public function action(TaxonomyRequest $request)
     {
         match ($request->get('action')) {
-            'destroy' => $request->model->delete(),
+            'delete' => $request->model->delete(),
             default => $request->model->fill($request->only($request->model->fillable))->save()
         };
 
-        return to_route('dashboard', ['taxonomy' => request('taxonomy'), 'action' => request('to_action')]);
+        return to_route('taxonomy.get', ['taxonomy' => request('taxonomy'), 'action' => request('to_action')]);
     }
 }

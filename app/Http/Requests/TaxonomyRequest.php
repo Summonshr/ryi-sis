@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Interfaces\TaxonomyInterface;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\Permission\Models\Permission;
 
 class TaxonomyRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class TaxonomyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return auth()->user()->can($this->get('action', $this->route('action', 'read')) . '-' . $this->route('taxonomy'));
     }
 
     /**
@@ -27,9 +28,10 @@ class TaxonomyRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'action' => ['string', 'in:store,update,destroy,create,edit,index'],
+            'action' => ['string', 'in:store,update,delete,create,edit,index'],
         ];
-        if ($this->has(['action']) && $this->get('action') !== 'destroy') {
+
+        if ($this->has('action') && $this->get('action') !== 'delete') {
             $rules = array_merge($rules, $this->model->rules($this->action));
         }
 

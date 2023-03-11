@@ -1,23 +1,21 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import NavLink from '@/Components/NavLink';
-import Pagination from '@/Components/Pagination';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard(props) {
-    console.log(props)
+export default function Dashboard({ auth, errors, data }) {
     return (
         <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
+            auth={auth}
+            errors={errors}
             active="semesters"
         >
             <div className="flex flex-wrap justify-end mb-4">
                 <div>
-                    <NavLink className='create-btn' href={route('dashboard', ['semesters', 'create'])} > Create</NavLink>
+                    {auth.permissions.includes('create-semesters') && <NavLink className='create-btn' href={route('taxonomy.get', ['semesters', 'create'])} > Create</NavLink>}
                 </div>
             </div>
-            <Table data={props.data} className="table">
+            <Table data={data} className="table">
                 <thead>
                     <th>ID</th>
                     <th>Season</th>
@@ -29,7 +27,7 @@ export default function Dashboard(props) {
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    {props.data.data.map((semester) => (
+                    {data.data.map((semester) => (
                         <tr key={semester.id}>
                             <td>{semester.id}</td>
                             <td>{semester.season.name}</td>
@@ -39,13 +37,13 @@ export default function Dashboard(props) {
                             <td>{semester.open_date}</td>
                             <td>{semester.close_date}</td>
                             <td>
-                                <NavLink className='a-edit' href={route('dashboard', ['semesters', 'edit', semester.id])} > Edit</NavLink>
-                                <NavLink className='text-red-600' onClick={(e) => {
+                                {auth.permissions.includes('edit-semesters') && <NavLink className='a-edit' href={route('taxonomy.get', ['semesters', 'edit', semester.id])} > Edit</NavLink>}
+                                {auth.permissions.includes('delete-semesters') && <NavLink className='text-red-600' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this semester?')) {
-                                        router.post('/taxonomy/semesters/' + semester.id, { action: 'destroy' })
+                                        router.post('/taxonomy/semesters/' + semester.id, { action: 'delete' })
                                     }
-                                }} > Delete</NavLink>
+                                }} > Delete</NavLink>}
                             </td>
                         </tr>
                     ))}

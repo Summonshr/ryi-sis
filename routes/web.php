@@ -22,9 +22,9 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard')->with([]);
-    });
-    Route::get('/{taxonomy?}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('dashboard');
-    Route::post('/taxonomy/{taxonomy}/{taxonomy_id?}', [TaxonomyController::class, 'action'])->name('taxonomy');
+    })->name('dashboard');
+    Route::get('taxonomy/{taxonomy?}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('taxonomy.get');
+    Route::post('/taxonomy/{taxonomy}/{taxonomy_id?}', [TaxonomyController::class, 'action'])->name('taxonomy.post');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
