@@ -31,7 +31,7 @@ class Course extends TaxonomyInterface
     {
         return  match ($action) {
             'create' => [
-                'name' => 'required|string|unique:programs,name',
+                'name' => 'required|string|unique:courses,name',
                 'description' => 'required|string',
                 'remarks' => 'nullable|string',
                 'code' => 'required|string|unique:courses,code',
@@ -41,7 +41,7 @@ class Course extends TaxonomyInterface
                 'prerequisite' => 'required|string',
             ],
             'edit' => [
-                'name' => 'required|string|unique:programs,name,' . $this->id,
+                'name' => 'required|string|unique:courses,name,'.$this->id,
                 'description' => 'required|string',
                 'remarks' => 'nullable|string',
                 'code' => 'required|string|unique:courses,code,' . $this->id,

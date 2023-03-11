@@ -7,6 +7,7 @@ import { Link, Head } from '@inertiajs/react';
 
 export default function Authenticated(props) {
     const { auth, header, children, active } = props
+    console.log(auth.permissions)
     const { permissions } = auth
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     return (
@@ -56,6 +57,7 @@ export default function Authenticated(props) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        {auth.permissions.includes('read-roles_and_permissions') && <Dropdown.Link href={route('roles-and-permissions.index')}>Roles & Permission</Dropdown.Link>}
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
@@ -107,6 +109,7 @@ export default function Authenticated(props) {
                         </div>
 
                         <div className="mt-3 space-y-1">
+                            <ResponsiveNavLink href={route('roles-and-permissions.index')}>Roles & Permission</ResponsiveNavLink>
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
@@ -126,13 +129,13 @@ export default function Authenticated(props) {
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="flex">
-                                <div className="w-48 p-8">
+                                <div className="w-48 p-2 mt-16 px-4">
                                     {permissions.includes('read-programs') && <ResponsiveNavLink active={active === 'programs'} href={route('taxonomy.get', ['programs'])}>Program</ResponsiveNavLink>}
-                                    {permissions.includes('read-courses') && <ResponsiveNavLink active={active === 'courses'} href={route('taxonomy.get', ['courses'])}>Course</ResponsiveNavLink>}
-                                    {permissions.includes('read-semesters') && <ResponsiveNavLink active={active === 'semesters'} href={route('taxonomy.get', ['semesters'])}>Semester</ResponsiveNavLink>}
+                                    {permissions.includes('read-courses') && <ResponsiveNavLink active={active === 'courses'} href={route('taxonomy.get', ['courses'])}>Courses</ResponsiveNavLink>}
+                                    {permissions.includes('read-semesters') && <ResponsiveNavLink active={active === 'semesters'} href={route('taxonomy.get', ['semesters'])}>Semesters</ResponsiveNavLink>}
                                     {permissions.includes('read-seasons') && <ResponsiveNavLink active={active === 'seasons'} href={route('taxonomy.get', ['seasons'])}>Seasons</ResponsiveNavLink>}
                                 </div>
-                                <div className="flex-1 p-8">
+                                <div className="flex-1 py-8 px-4">
                                     {children}
                                 </div>
                             </div>

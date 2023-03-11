@@ -1,6 +1,6 @@
 import Pagination from "./Pagination";
 
-export default function Table({ children, data }) {
+export default function Table({ children, data, pagination }) {
 
     if (data.total === 0) {
         return (
@@ -15,12 +15,12 @@ export default function Table({ children, data }) {
             <table>
                 {children}
             </table>
-            <div className="w-full flex flex-wrap justify-between mt-2 items-center">
+            {pagination !== false && <div className="w-full px-2 flex flex-wrap justify-between items-center">
                 <Pagination links={data.links} />
                 <span>
                     Total Records: {data.total}
                 </span>
-            </div>
+            </div>}
         </div>
     );
 }

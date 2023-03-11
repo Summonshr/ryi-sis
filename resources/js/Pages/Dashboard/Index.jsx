@@ -19,10 +19,7 @@ export default function Dashboard(props) {
             errors={props.errors}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
-            <form onSubmit={submit}>
-                <input type="text" value={data.email} onChange={e => setData('email', e.target.value)} />
-                <button type="submit" disabled={processing}>Submit</button>
-            </form>
+            Dashbard section
         </AuthenticatedLayout>
     );
 }

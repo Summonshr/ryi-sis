@@ -19,7 +19,7 @@
 }
 
 .table {
-    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-sm;
 }
 
 .table table {
@@ -47,8 +47,12 @@
 }
 
 .text-field {
-    @apply block min-h-[auto] w-full rounded bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all
+    @apply block min-h-[auto] w-full rounded bg-white py-[0.32rem] px-3 leading-[1.6] outline-none transition-all
     duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100
     motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200
-    [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0;
+    [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 border-gray-300;
+}
+
+.input-form {
+    @apply p-4 sm:p-8 bg-gray-50 shadow sm:rounded-lg;
 }

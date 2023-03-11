@@ -30,7 +30,7 @@ export default function ForgotPassword({ status }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='input-form'>
                 <TextInput
                     id="email"
                     type="email"

@@ -17,14 +17,16 @@ export default function Dashboard({ auth, errors, data }) {
             </div>
             <Table data={data} className="table">
                 <thead>
-                    <th>ID</th>
-                    <th>Season</th>
-                    <th>Year</th>
-                    <th>Start date</th>
-                    <th>End date</th>
-                    <th>Open Date</th>
-                    <th>Close Date</th>
-                    <th>Actions</th>
+                    <tr>
+                        <th>ID</th>
+                        <th>Season</th>
+                        <th>Year</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                        <th>Open Date</th>
+                        <th>Close Date</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {data.data.map((semester) => (

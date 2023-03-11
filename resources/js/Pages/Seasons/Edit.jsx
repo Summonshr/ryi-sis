@@ -20,7 +20,7 @@ export default function Dashboard(props) {
             errors={props.errors}
             active="seasons"
         >
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='input-form'>
                 <div className="max-w-md">
                     <div className="flex flex-col">
                         <label htmlFor="name" className="leading-loose">Name</label>

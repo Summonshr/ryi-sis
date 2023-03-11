@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Season;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,23 +35,32 @@ class DatabaseSeeder extends Seeder
             'semesters',
             'seasons',
             'courses',
-            'course-categories',
+            'course_categories',
             'programs',
             'sections',
-            'semester-courses',
+            'semester_courses',
             'textbooks',
-            'users'
+            'users',
+            'roles_and_permissions',
         ])->map(
-            function($permission) {
+            function ($permission) {
                 collect([
-                    'read','create','edit','delete','list'
-                ])->map(function($action) use ($permission) {
+                    'read', 'create', 'edit', 'delete', 'list'
+                ])->map(function ($action) use ($permission) {
                     \Spatie\Permission\Models\Permission::create([
                         'name' => $action . '-' . $permission,
-                        'guard_name' => 'web'
+                        'guard_name' => 'web',
                     ]);
-            });
-        });
+                });
+            }
+        );
+
+        $user = User::first();
+        $user->assignRole('super-admin');
+        $user->roles[0]->givePermissionTo('read-roles_and_permissions');
+        $user->roles[0]->givePermissionTo('edit-roles_and_permissions');
+
+        Season::truncate();
 
         collect(['Spring', 'Fall', 'Winter', 'Summer'])->map(
             fn ($season) =>

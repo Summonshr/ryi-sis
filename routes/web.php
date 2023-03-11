@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaxonomyController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,12 +17,11 @@ use Inertia\Inertia;
 |
 */
 require __DIR__ . '/auth.php';
-
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','web'])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard')->with([]);
+        return Inertia::render('Dashboard/Index')->with([]);
     })->name('dashboard');
+    Route::resource('roles-and-permissions', AccessController::class);
     Route::get('taxonomy/{taxonomy?}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('taxonomy.get');
     Route::post('/taxonomy/{taxonomy}/{taxonomy_id?}', [TaxonomyController::class, 'action'])->name('taxonomy.post');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
