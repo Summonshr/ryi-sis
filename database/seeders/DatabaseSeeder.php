@@ -25,8 +25,7 @@ class DatabaseSeeder extends Seeder
             'instructor',
             'super-admin',
         ])->map(
-            fn ($role) =>
-            \Spatie\Permission\Models\Role::create([
+            fn ($role) => \Spatie\Permission\Models\Role::create([
                 'name' => $role,
             ])
         );
@@ -45,10 +44,10 @@ class DatabaseSeeder extends Seeder
         ])->map(
             function ($permission) {
                 collect([
-                    'read', 'create', 'edit', 'delete', 'list'
+                    'read', 'create', 'edit', 'delete', 'list',
                 ])->map(function ($action) use ($permission) {
                     \Spatie\Permission\Models\Permission::create([
-                        'name' => $action . '-' . $permission,
+                        'name' => $action.'-'.$permission,
                         'guard_name' => 'web',
                     ]);
                 });
@@ -63,10 +62,9 @@ class DatabaseSeeder extends Seeder
         Season::truncate();
 
         collect(['Spring', 'Fall', 'Winter', 'Summer'])->map(
-            fn ($season) =>
-            Season::create([
+            fn ($season) => Season::create([
                 'name' => $season,
-                'description' => $season . ' season',
+                'description' => $season.' season',
                 'remarks' => '',
             ])
         );

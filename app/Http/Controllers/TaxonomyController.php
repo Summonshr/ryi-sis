@@ -12,13 +12,13 @@ class TaxonomyController extends Controller
     public function index(TaxonomyRequest $request, TaxonomyInterface $model)
     {
         $meta = [
-            'seasons' => Season::all()
+            'seasons' => Season::all(),
         ];
 
-        return Inertia::render(ucfirst(request('taxonomy', 'dashboard') . '/' . ucfirst(request('action'))))->with([
+        return Inertia::render(ucfirst(request('taxonomy', 'dashboard').'/'.ucfirst(request('action'))))->with([
             'taxonomy' => request('taxonomy', 'dashboard'),
             'data' => $model->id ? $model : $model->latest()->paginate(5),
-            'meta' => $meta
+            'meta' => $meta,
         ]);
     }
 

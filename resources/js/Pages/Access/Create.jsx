@@ -22,10 +22,12 @@ export default function Dashboard(props) {
     return (
         <AuthenticatedLayout
             auth={props.auth}
+            header="Roles and permissions"
             errors={props.errors}
             active="courses"
         >
             <form onSubmit={submit} className='input-form'>
+
                 <div className="max-w-md">
                     <div className="flex flex-col">
                         <label htmlFor="name" className="leading-loose">Name</label>

@@ -14,6 +14,7 @@ class AccessViewRequest extends FormRequest
         if ($this->route()->getName() === 'roles-and-permissions.edit') {
             return auth()->user()->can('edit-roles_and_permissions');
         }
+
         return auth()->user()->can('read-roles_and_permissions');
     }
 

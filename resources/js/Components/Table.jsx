@@ -15,7 +15,7 @@ export default function Table({ children, data, pagination }) {
             <table>
                 {children}
             </table>
-            {pagination !== false && <div className="w-full px-2 flex flex-wrap justify-between items-center">
+            {pagination !== false && <div className="w-full flex flex-wrap justify-between items-center text-gray-600 text-sm">
                 <Pagination links={data.links} />
                 <span>
                     Total Records: {data.total}

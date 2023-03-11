@@ -24,7 +24,7 @@ class Season extends TaxonomyInterface
                 'remarks' => 'nullable|string',
             ],
             'edit' => [
-                'name' => 'required|string|unique:seasons,name,' . $this->id,
+                'name' => 'required|string|unique:seasons,name,'.$this->id,
                 'description' => 'required|string',
                 'remarks' => 'nullable|string',
             ]

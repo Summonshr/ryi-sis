@@ -9,11 +9,18 @@ export default function Dashboard(props) {
     return (
         <AuthenticatedLayout
             auth={auth}
+            header="Roles and permissions"
             errors={errors}
             active="roles-and-permission"
+            breadcrumbs={
+                [
+                    { name: 'Roles and permissions', href: route('roles-and-permissions.index'), current: false },
+                    { name: 'Edit', href: '#', current: true },
+                ]
+            }
         >
             <div className='input-form'>
-                <h1 className="text-2xl mb-4 font-bold">Edit Role: <span>{upperFirst(data.role.name)}</span></h1>
+                <h1 className="mb-4 text-gray-600 text-sm">Edit Role: <span className="text-gray-800 font-bold text-sm">{upperFirst(data.role.name)}</span></h1>
                 {data.permissions.map((permission) => {
                     return (
                         <div className='mb-4' key={permission.group}>

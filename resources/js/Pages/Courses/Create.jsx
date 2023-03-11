@@ -22,10 +22,18 @@ export default function Dashboard(props) {
     return (
         <AuthenticatedLayout
             auth={props.auth}
+            header="Courses"
             errors={props.errors}
             active="courses"
+            breadcrumbs={[
+                { name: 'Courses', href: route('taxonomy.get','courses'), current: false },
+                { name: 'Create course', href: '#', current: true },
+            ]}
         >
             <form onSubmit={submit} className='input-form'>
+                <div className="title">
+                    <h2>Create Course</h2>
+                </div>
                 <div className="max-w-md">
                     <div className="flex flex-col">
                         <label htmlFor="name" className="leading-loose">Name</label>

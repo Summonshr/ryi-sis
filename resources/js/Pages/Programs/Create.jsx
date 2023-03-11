@@ -16,8 +16,13 @@ export default function Dashboard(props) {
     return (
         <AuthenticatedLayout
             auth={props.auth}
+            header="Programs"
             errors={props.errors}
             active="programs"
+            breadcrumbs={[
+                { name: 'Programs', href: route('taxonomy.get','programs'), current: false },
+                { name: 'Create program', href: '#', current: true },
+            ]}
         >
             <form onSubmit={submit} className='input-form'>
                 <div className="max-w-md">

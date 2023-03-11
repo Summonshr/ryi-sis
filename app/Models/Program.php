@@ -24,7 +24,7 @@ class Program extends TaxonomyInterface
                 'remarks' => 'nullable|string',
             ],
             'edit' => [
-                'name' => 'required|string|unique:programs,name,' . $this->id,
+                'name' => 'required|string|unique:programs,name,'.$this->id,
                 'description' => 'required|string',
                 'remarks' => 'nullable|string',
             ]

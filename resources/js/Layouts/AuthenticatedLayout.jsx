@@ -1,34 +1,35 @@
 import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import Breadcrumbs from '@/Components/Breadcrumbs';
 
 export default function Authenticated(props) {
-    const { auth, header, children, active } = props
-    console.log(auth.permissions)
+    const { auth, header, children, active, breadcrumbs } = props
     const { permissions } = auth
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
-
+        <div className="min-h-[640px] bg-gray-100">
+            <Head title='RYI SIS dashboard'/>
+            <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+                <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
+                    <div className="flex flex-shrink-0 items-center px-4">
+                        <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+                    </div>
+                    <div className="mt-5 flex flex-grow flex-col">
+                        <nav className="flex-1 space-y-1 px-2 pb-4">
+                            {permissions.includes('read-programs') && <ResponsiveNavLink active={active === 'programs'} href={route('taxonomy.get', ['programs'])}>Program</ResponsiveNavLink>}
+                            {permissions.includes('read-courses') && <ResponsiveNavLink active={active === 'courses'} href={route('taxonomy.get', ['courses'])}>Courses</ResponsiveNavLink>}
+                            {permissions.includes('read-semesters') && <ResponsiveNavLink active={active === 'semesters'} href={route('taxonomy.get', ['semesters'])}>Semesters</ResponsiveNavLink>}
+                            {permissions.includes('read-seasons') && <ResponsiveNavLink active={active === 'seasons'} href={route('taxonomy.get', ['seasons'])}>Seasons</ResponsiveNavLink>}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-1 flex-col min-h-screen">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white w-full">
+                    <div className="flex justify-end h-16">
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <div className="ml-3 relative">
                                 <Dropdown>
@@ -93,56 +94,21 @@ export default function Authenticated(props) {
                     </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
-                                {auth.user.name}
-                            </div>
-                            <div className="font-medium text-sm text-gray-500">{auth.user.email}</div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('roles-and-permissions.index')}>Roles & Permission</ResponsiveNavLink>
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <header className="bg-white shadow">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header || 'Dashboard'}</div>
-            </header>
-
-            <main>
-                <Head title="Dashboard" />
-                <div className="py-16">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="flex">
-                                <div className="w-48 p-2 mt-16 px-4">
-                                    {permissions.includes('read-programs') && <ResponsiveNavLink active={active === 'programs'} href={route('taxonomy.get', ['programs'])}>Program</ResponsiveNavLink>}
-                                    {permissions.includes('read-courses') && <ResponsiveNavLink active={active === 'courses'} href={route('taxonomy.get', ['courses'])}>Courses</ResponsiveNavLink>}
-                                    {permissions.includes('read-semesters') && <ResponsiveNavLink active={active === 'semesters'} href={route('taxonomy.get', ['semesters'])}>Semesters</ResponsiveNavLink>}
-                                    {permissions.includes('read-seasons') && <ResponsiveNavLink active={active === 'seasons'} href={route('taxonomy.get', ['seasons'])}>Seasons</ResponsiveNavLink>}
+                <main className="flex-1">
+                    <div className="py-6">
+                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                            <div className="">
+                                <div className="mb-4">
+                                    <Breadcrumbs breadcrumbs={breadcrumbs} />
                                 </div>
-                                <div className="flex-1 py-8 px-4">
+                                <div className="relative overflow-hidden rounded-xl border bg-white border-gray-200 p-4 sm:p-6 lg:p-8">
                                     {children}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
-        </div>
+                </main>
+            </div >
+        </div >
     );
 }

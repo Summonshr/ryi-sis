@@ -23,9 +23,8 @@ class Course extends TaxonomyInterface
         'transcript_name',
         'type',
         'credit',
-        'prerequisite'
+        'prerequisite',
     ];
-
 
     public function rules($action)
     {
@@ -44,7 +43,7 @@ class Course extends TaxonomyInterface
                 'name' => 'required|string|unique:courses,name,'.$this->id,
                 'description' => 'required|string',
                 'remarks' => 'nullable|string',
-                'code' => 'required|string|unique:courses,code,' . $this->id,
+                'code' => 'required|string|unique:courses,code,'.$this->id,
                 'transcript_name' => 'required|string',
                 'type' => 'required|string|in:active,required',
                 'credit' => 'required|integer',

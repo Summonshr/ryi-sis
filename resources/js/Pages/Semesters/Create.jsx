@@ -22,8 +22,13 @@ export default function Dashboard({ auth, errors: error, meta }) {
     return (
         <AuthenticatedLayout
             auth={auth}
+            header="Semesters"
             errors={error}
             active="semesters"
+            breadcrumbs={[
+                { name: 'Semesters', href: route('taxonomy.get','semesters'), current: false },
+                { name: 'Create semester', href: '#', current: true },
+            ]}
         >
             <form onSubmit={submit} className='input-form'>
                 <div className="max-w-md">

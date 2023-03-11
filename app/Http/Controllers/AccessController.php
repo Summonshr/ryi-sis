@@ -15,7 +15,7 @@ class AccessController extends Controller
             'data' => [
                 'roles' => \Spatie\Permission\Models\Role::all(),
                 'permissions' => \Spatie\Permission\Models\Permission::all(),
-            ]
+            ],
         ]);
     }
 
@@ -26,14 +26,15 @@ class AccessController extends Controller
                 'role' => $role,
                 'permissions' => \Spatie\Permission\Models\Permission::all()->map(function ($e) use ($role) {
                     $e->selected = $role->hasPermissionTo($e->name);
+
                     return $e;
                 })->groupBy(function ($permission) {
                     return explode('-', $permission->name)[1];
                 })->map(fn ($e, $a) => [
                     'group' => $a,
-                    'permissions' => $e
+                    'permissions' => $e,
                 ])->values(),
-            ]
+            ],
         ]);
     }
 
@@ -46,6 +47,7 @@ class AccessController extends Controller
     {
         if ($role->hasPermissionTo($request->permission)) {
             $role->revokePermissionTo($request->permission);
+
             return;
         }
         $role->givePermissionTo($request->permission);

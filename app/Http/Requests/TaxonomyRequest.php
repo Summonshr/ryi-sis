@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\Interfaces\TaxonomyInterface;
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\Permission\Models\Permission;
 
 class TaxonomyRequest extends FormRequest
 {
@@ -12,12 +11,13 @@ class TaxonomyRequest extends FormRequest
     {
         $this->model = $model;
     }
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user()->can($this->get('action', $this->route('action', 'read')) . '-' . $this->route('taxonomy'));
+        return auth()->user()->can($this->get('action', $this->route('action', 'read')).'-'.$this->route('taxonomy'));
     }
 
     /**
