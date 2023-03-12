@@ -31,10 +31,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = User::with('roles')->whereHas('roles', fn ($query) => $query->where('name', 'super-admin'))->first();
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'first' => User::with('roles')->whereHas('roles', fn ($query) => $query->where('name', 'super-admin'))->first(),
+                'first' => $user,
                 'permissions' => $request->user()?->getPermissionsViaRoles()->pluck('name'),
             ],
             'ziggy' => function () use ($request) {

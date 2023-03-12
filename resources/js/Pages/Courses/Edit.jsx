@@ -44,7 +44,7 @@ export default function Dashboard(props) {
                     </div>
                     <div className="flex flex-col mt-4">
                         <label htmlFor="remarks" className="leading-loose">Remarks</label>
-                        <textarea class="text-field" type="text" id="remarks" name="remarks" value={data.remarks} onChange={e => setData('remarks', e.target.value)} />
+                        <textarea className="text-field" type="text" id="remarks" name="remarks" value={data.remarks} onChange={e => setData('remarks', e.target.value)} />
                         {errors.remarks && <span className="text-red-500">{errors.remarks}</span>}
                     </div>
                     <div className="flex flex-col mt-4">

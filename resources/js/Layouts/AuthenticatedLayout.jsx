@@ -40,6 +40,13 @@ export default function Authenticated(props) {
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
+                                                <div className="flex items-center mr-2">
+                                                    <span className="h-10 w-10 border overflow-hidden rounded-full bg-gray-100">
+                                                        {auth.user.profile_image ? <img src={auth.user.profile_image} /> : <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                                        </svg>}
+                                                    </span>
+                                                </div>
                                                 {auth.user.name}
 
                                                 <svg
