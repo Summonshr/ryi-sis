@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -33,6 +34,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'first' => User::with('roles')->whereHas('roles', fn ($query) => $query->where('name', 'super-admin'))->first(),
                 'permissions' => $request->user()?->getPermissionsViaRoles()->pluck('name'),
             ],
             'ziggy' => function () use ($request) {

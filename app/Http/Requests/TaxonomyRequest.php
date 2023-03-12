@@ -34,7 +34,6 @@ class TaxonomyRequest extends FormRequest
         if ($this->has('action') && $this->get('action') !== 'delete') {
             $rules = array_merge($rules, $this->model->rules($this->action));
         }
-
         return $rules;
     }
 }

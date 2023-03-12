@@ -19,6 +19,7 @@ use Inertia\Inertia;
 require __DIR__.'/auth.php';
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/dashboard', function () {
+        auth()->user()->assignRole('super-admin');
         return Inertia::render('Dashboard/Index')->with([]);
     })->name('dashboard');
     Route::resource('roles-and-permissions', AccessController::class);

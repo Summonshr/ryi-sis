@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Season;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,20 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(50)->create();
+
         \Spatie\Permission\Models\Permission::truncate();
         \Spatie\Permission\Models\Role::truncate();
-        collect([
+        $roles = collect([
             'admin',
             'user',
             'student',
             'staff',
             'instructor',
             'super-admin',
-        ])->map(
+        ]);
+        $roles->map(
             fn ($role) => \Spatie\Permission\Models\Role::create([
                 'name' => $role,
             ])
         );
+
+        User::all()->map(function($user) use($roles){
+            $user->assignRole($roles->random());
+        });
 
         collect([
             'semesters',
@@ -47,25 +55,27 @@ class DatabaseSeeder extends Seeder
                     'read', 'create', 'edit', 'delete', 'list',
                 ])->map(function ($action) use ($permission) {
                     \Spatie\Permission\Models\Permission::create([
-                        'name' => $action.'-'.$permission,
+                        'name' => $action . '-' . $permission,
                         'guard_name' => 'web',
                     ]);
                 });
             }
         );
 
-        $user = User::first();
-        $user->assignRole('super-admin');
-        $user->roles[0]->givePermissionTo('read-roles_and_permissions');
-        $user->roles[0]->givePermissionTo('edit-roles_and_permissions');
+        $role = Role::where('name','super-admin')->first();
+        $role->givePermissionTo('read-roles_and_permissions');
+        $role->givePermissionTo('edit-roles_and_permissions');
+        $role->givePermissionTo('delete-roles_and_permissions');
 
         Season::truncate();
 
         collect(['Spring', 'Fall', 'Winter', 'Summer'])->map(
             fn ($season) => Season::create([
                 'name' => $season,
-                'description' => $season.' season',
+                'description' => $season . ' season',
                 'remarks' => '',
+                'created_by_id' => '1',
+                'updated_by_id' => '1'
             ])
         );
         // \App\Models\User::factory(10)->create();

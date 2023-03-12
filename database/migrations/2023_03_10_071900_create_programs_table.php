@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->text('remarks');
             $table->softDeletes();
             $table->timestamps();
@@ -25,6 +28,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->text('remarks');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -40,6 +46,9 @@ return new class extends Migration
             $table->date('grade_release_date');
             $table->string('description')->nullable();
             $table->text('remarks')->nullable();
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -49,6 +58,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->text('remarks');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -63,6 +75,9 @@ return new class extends Migration
             $table->integer('credit');
             $table->text('prerequisite');
             $table->text('remarks');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -72,6 +87,9 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained();
             $table->foreignId('program_id')->constrained();
             $table->softDeletes();
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 
@@ -79,6 +97,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('semester_id')->constrained();
             $table->foreignId('course_id')->constrained();
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -89,6 +110,9 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained();
             $table->string('description');
             $table->text('remarks');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -101,6 +125,9 @@ return new class extends Migration
             $table->string('publisher');
             $table->string('author');
             $table->string('year');
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('deleted_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -111,14 +138,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
-        Schema::dropIfExists('seasons');
-        Schema::dropIfExists('semesters');
         Schema::dropIfExists('course_categories');
-        Schema::dropIfExists('course_programs');
-        Schema::dropIfExists('courses');
         Schema::dropIfExists('semester_courses');
+        Schema::dropIfExists('course_programs');
+        Schema::dropIfExists('programs');
+        Schema::dropIfExists('semesters');
+        Schema::dropIfExists('seasons');
         Schema::dropIfExists('sections');
+        Schema::dropIfExists('courses');
         Schema::dropIfExists('textbooks');
     }
 };

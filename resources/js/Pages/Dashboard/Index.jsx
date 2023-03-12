@@ -8,6 +8,8 @@ export default function Dashboard(props) {
         remember: false,
     })
 
+    console.log(props)
+
     function submit(e) {
         e.preventDefault()
         post('/taxonomy/semester')
