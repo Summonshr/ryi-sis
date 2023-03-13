@@ -74,6 +74,6 @@ class User extends Authenticatable implements HasMedia
 
     protected function profileImage(): Attribute
     {
-        return new Attribute(fn () => $this->getMedia('images')?->first()?->getUrl());
+        return new Attribute(fn () => $this->getMedia('images')->first()?->getUrl());
     }
 }
