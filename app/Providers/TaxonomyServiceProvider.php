@@ -30,6 +30,7 @@ class TaxonomyServiceProvider extends ServiceProvider
                 'textbooks' => Textbook::class,
                 'seasons' => Season::class,
                 'semester_courses' => SemesterCourse::class,
+                default => null,
             });
             if (request()->route('taxonomy_id')) {
                 return $model->findOrFail(request()->route('taxonomy_id'));
