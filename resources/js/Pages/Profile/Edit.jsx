@@ -10,7 +10,6 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
             files: e.target.files[0]
         })
     }
-    console.log(auth.user)
     return (
         <AuthenticatedLayout
             auth={auth}
