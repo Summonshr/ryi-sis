@@ -23,7 +23,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         return Inertia::render('Dashboard/Index')->with([]);
     })->name('dashboard');
     Route::resource('roles-and-permissions', AccessController::class);
-    Route::get('taxonomy/{taxonomy?}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('taxonomy.get');
+    Route::get('taxonomy/{taxonomy}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('taxonomy.get');
     Route::post('/taxonomy/{taxonomy}/{taxonomy_id?}', [TaxonomyController::class, 'action'])->name('taxonomy.post');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
