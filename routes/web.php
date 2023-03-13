@@ -23,7 +23,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         return Inertia::render('Dashboard/Index')->with([]);
     })->name('dashboard');
     Route::post('/upload', function(){
-        request()->user()->addMedia(request()->file('files'))->toMediaCollection('images');
+        request()->user()->addMedia(request()->file('files'))->toMediaCollection('profile_images');
     });
     Route::resource('roles-and-permissions', AccessController::class);
     Route::get('taxonomy/{taxonomy?}/{action?}/{taxonomy_id?}', [TaxonomyController::class, 'index'])->name('taxonomy.get');
