@@ -12,6 +12,7 @@ use App\Models\Semester;
 use App\Models\SemesterCourse;
 use App\Models\Textbook;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TaxonomyServiceProvider extends ServiceProvider
 {
@@ -30,8 +31,9 @@ class TaxonomyServiceProvider extends ServiceProvider
                 'textbooks' => Textbook::class,
                 'seasons' => Season::class,
                 'semester_courses' => SemesterCourse::class,
-                default => null,
+                default => throw new NotFoundHttpException(),
             });
+
             if (request()->route('taxonomy_id')) {
                 return $model->findOrFail(request()->route('taxonomy_id'));
             }
