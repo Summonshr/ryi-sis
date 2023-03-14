@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import Dropdown from '@/Components/Dropdown';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import Breadcrumbs from '@/Components/Breadcrumbs';
 
 export default function Authenticated(props) {
-    const { auth, header, children, active, breadcrumbs } = props
-    const { permissions } = auth
+    const { children, active, breadcrumbs } = props
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
+    const pageProps = usePage().props;
+    const permissions = pageProps.permissions;
+    const auth = pageProps.auth
     return (
         <div className="min-h-[640px] bg-gray-100">
             <Head title='RYI SIS dashboard' />
+
             <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
                 <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
                     <div className="flex flex-shrink-0 items-center px-4">
@@ -66,7 +68,7 @@ export default function Authenticated(props) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        {auth.permissions.includes('read-roles_and_permissions') && <Dropdown.Link href={route('roles-and-permissions.index')}>Roles & Permission</Dropdown.Link>}
+                                        {permissions.includes('read-roles_and_permissions') && <Dropdown.Link href={route('roles-and-permissions.index')}>Roles & Permission</Dropdown.Link>}
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
@@ -105,7 +107,7 @@ export default function Authenticated(props) {
                 <main className="flex-1">
                     <div className="py-6">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <div className="">
+                            <div className="relative">
                                 <div className="mb-4">
                                     <Breadcrumbs breadcrumbs={breadcrumbs} />
                                 </div>

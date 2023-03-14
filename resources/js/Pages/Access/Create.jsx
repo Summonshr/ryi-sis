@@ -21,9 +21,7 @@ export default function Dashboard(props) {
 
     return (
         <AuthenticatedLayout
-            auth={props.auth}
             header="Roles and permissions"
-            errors={props.errors}
             active="courses"
         >
             <form onSubmit={submit} className='input-form'>

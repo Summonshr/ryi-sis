@@ -2,15 +2,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { router } from '@inertiajs/react';
 import Checkbox from '@/Components/Checkbox';
 import { upperFirst } from 'lodash';
-import { Transition } from '@headlessui/react';
 
 export default function Dashboard(props) {
-    const { auth, errors, data } = props
+    const { data } = props
     return (
         <AuthenticatedLayout
-            auth={auth}
             header="Roles and permissions"
-            errors={errors}
             active="roles-and-permission"
             breadcrumbs={
                 [

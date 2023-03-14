@@ -3,12 +3,10 @@ import NavLink from '@/Components/NavLink';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard({ auth, errors, data }) {
+export default function Dashboard({ data, permissions }) {
     return (
         <AuthenticatedLayout
             header="Seasons"
-            auth={auth}
-            errors={errors}
             breadcrumbs={
                 [
                     { name: 'Seasons', href: route('taxonomy.get', ['seasons']), current: true },
@@ -22,7 +20,7 @@ export default function Dashboard({ auth, errors, data }) {
                     <p>A list of all seasons</p>
                 </div>
                 <div>
-                    {auth.permissions.includes('create-seasons') && <NavLink className='create-btn' href={route('taxonomy.get', ['seasons', 'create'])} > Create new season</NavLink>}
+                    {permissions.includes('create-seasons') && <NavLink className='create-btn' href={route('taxonomy.get', ['seasons', 'create'])} > Create new season</NavLink>}
                 </div>
             </div>
             <Table data={data} className="table">
@@ -43,8 +41,8 @@ export default function Dashboard({ auth, errors, data }) {
                             <td>{program.description}</td>
                             <td>{program.remarks}</td>
                             <td>
-                                {auth.permissions.includes('edit-seasons') && <NavLink className='a-edit' href={route('taxonomy.get', ['seasons', 'edit', program.id])} > Edit</NavLink>}
-                                {auth.permissions.includes('delete-seasons') && <NavLink className='a-delete' onClick={(e) => {
+                                {permissions.includes('edit-seasons') && <NavLink className='a-edit' href={route('taxonomy.get', ['seasons', 'edit', program.id])} > Edit</NavLink>}
+                                {permissions.includes('delete-seasons') && <NavLink className='a-delete' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this program?')) {
                                         router.post('/taxonomy/seasons/' + program.id, { action: 'delete' })

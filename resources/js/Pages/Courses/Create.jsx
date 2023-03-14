@@ -21,9 +21,7 @@ export default function Dashboard(props) {
 
     return (
         <AuthenticatedLayout
-            auth={props.auth}
             header="Courses"
-            errors={props.errors}
             active="courses"
             breadcrumbs={[
                 { name: 'Courses', href: route('taxonomy.get','courses'), current: false },

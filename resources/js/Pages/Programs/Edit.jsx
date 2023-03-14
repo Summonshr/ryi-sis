@@ -20,8 +20,6 @@ export default function Dashboard(props) {
                 { name: 'Programs', href: route('taxonomy.get','programs'), current: false },
                 { name: 'Edit program', href: '#', current: true },
             ]}
-            auth={props.auth}
-            errors={props.errors}
             active="programs"
         >
             <form onSubmit={submit} className='input-form'>

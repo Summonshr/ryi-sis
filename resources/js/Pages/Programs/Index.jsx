@@ -3,11 +3,9 @@ import NavLink from '@/Components/NavLink';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard({ auth, errors, data }) {
+export default function Dashboard({  data, permissions }) {
     return (
         <AuthenticatedLayout
-            auth={auth}
-            errors={errors}
             header="Programs"
             active="programs"
             breadcrumbs={
@@ -22,7 +20,7 @@ export default function Dashboard({ auth, errors, data }) {
                     <p>A list of all programs</p>
                 </div>
                 <div>
-                    {auth.permissions.includes('create-programs') && <NavLink className='create-btn' href={route('taxonomy.get', ['programs', 'create'])} > Create new program</NavLink>}
+                    {permissions.includes('create-programs') && <NavLink className='create-btn' href={route('taxonomy.get', ['programs', 'create'])} > Create new program</NavLink>}
                 </div>
             </div>
             <Table data={data} className="table">
@@ -43,8 +41,8 @@ export default function Dashboard({ auth, errors, data }) {
                             <td>{program.description}</td>
                             <td>{program.remarks}</td>
                             <td>
-                                {auth.permissions.includes('edit-programs') && <NavLink className='a-edit' href={route('taxonomy.get', ['programs', 'edit', program.id])} > Edit</NavLink>}
-                                {auth.permissions.includes('delete-programs') && <NavLink className='a-delete' onClick={(e) => {
+                                {permissions.includes('edit-programs') && <NavLink className='a-edit' href={route('taxonomy.get', ['programs', 'edit', program.id])} > Edit</NavLink>}
+                                {permissions.includes('delete-programs') && <NavLink className='a-delete' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this program?')) {
                                         router.post('/taxonomy/programs/' + program.id, { action: 'delete' })

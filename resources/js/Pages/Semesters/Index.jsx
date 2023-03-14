@@ -3,12 +3,10 @@ import NavLink from '@/Components/NavLink';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard({ auth, errors, data }) {
+export default function Dashboard({ data, permissions }) {
     return (
         <AuthenticatedLayout
-            auth={auth}
             header="Semesters"
-            errors={errors}
             breadcrumbs={
                 [
                     { name: 'Semesters', href: route('taxonomy.get', ['semesters']), current: true },
@@ -22,7 +20,7 @@ export default function Dashboard({ auth, errors, data }) {
                     <p>A list of all semesters</p>
                 </div>
                 <div>
-                    {auth.permissions.includes('create-semesters') && <NavLink className='create-btn' href={route('taxonomy.get', ['semesters', 'create'])} > Create new semester</NavLink>}
+                    {permissions.includes('create-semesters') && <NavLink className='create-btn' href={route('taxonomy.get', ['semesters', 'create'])} > Create new semester</NavLink>}
                 </div>
             </div>
             <Table data={data} className="table">
@@ -49,8 +47,8 @@ export default function Dashboard({ auth, errors, data }) {
                             <td>{semester.open_date}</td>
                             <td>{semester.close_date}</td>
                             <td>
-                                {auth.permissions.includes('edit-semesters') && <NavLink className='a-edit' href={route('taxonomy.get', ['semesters', 'edit', semester.id])} > Edit</NavLink>}
-                                {auth.permissions.includes('delete-semesters') && <NavLink className='a-delete' onClick={(e) => {
+                                {permissions.includes('edit-semesters') && <NavLink className='a-edit' href={route('taxonomy.get', ['semesters', 'edit', semester.id])} > Edit</NavLink>}
+                                {permissions.includes('delete-semesters') && <NavLink className='a-delete' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this semester?')) {
                                         router.post('/taxonomy/semesters/' + semester.id, { action: 'delete' })

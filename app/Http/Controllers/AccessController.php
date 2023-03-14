@@ -13,8 +13,7 @@ class AccessController extends Controller
     {
         return Inertia::render('Access/Index', [
             'data' => [
-                'roles' => \Spatie\Permission\Models\Role::all(),
-                'permissions' => \Spatie\Permission\Models\Permission::all(),
+                'roles' => fn () => \Spatie\Permission\Models\Role::all(),
             ],
         ]);
     }
@@ -41,6 +40,13 @@ class AccessController extends Controller
     public function destroy(AccessUpdateRequest $request, Role $role)
     {
         $role->delete();
+    }
+
+    public function store(AccessUpdateRequest $request)
+    {
+        $role = Role::create(['name' => $request->name]);
+
+        return to_route('roles-and-permissions.edit', $role);
     }
 
     public function update(Role $role, AccessUpdateRequest $request)

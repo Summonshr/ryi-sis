@@ -3,11 +3,9 @@ import NavLink from '@/Components/NavLink';
 import { router } from '@inertiajs/react';
 import Table from '@/Components/Table';
 
-export default function Dashboard({ auth, errors, data }) {
+export default function Dashboard({ data, permissions }) {
     return (
         <AuthenticatedLayout
-            auth={auth}
-            errors={errors}
             header="Courses"
             active="courses"
             breadcrumbs={
@@ -22,7 +20,7 @@ export default function Dashboard({ auth, errors, data }) {
                     <p>A list of all courses</p>
                 </div>
                 <div>
-                    {auth.permissions.includes('create-courses') && <NavLink className='create-btn' href={route('taxonomy.get', ['courses', 'create'])} >Create new course</NavLink>}
+                    {permissions.includes('create-courses') && <NavLink className='create-btn' href={route('taxonomy.get', ['courses', 'create'])} >Create new course</NavLink>}
                 </div>
             </div>
             <Table data={data} className="table">
@@ -41,8 +39,8 @@ export default function Dashboard({ auth, errors, data }) {
                             <td>{course.description}</td>
                             <td>{course.remarks}</td>
                             <td>
-                                {auth.permissions.includes('edit-courses') && <NavLink className='a-edit' href={route('taxonomy.get', ['courses', 'edit', course.id])} > Edit</NavLink>}
-                                {auth.permissions.includes('delete-courses') && <NavLink className='a-delete' onClick={(e) => {
+                                {permissions.includes('edit-courses') && <NavLink className='a-edit' href={route('taxonomy.get', ['courses', 'edit', course.id])} > Edit</NavLink>}
+                                {permissions.includes('delete-courses') && <NavLink className='a-delete' onClick={(e) => {
                                     e.preventDefault()
                                     if (confirm('Are you sure you want to delete this course?')) {
                                         router.post('/taxonomy/courses/' + course.id, { action: 'delete' })

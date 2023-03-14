@@ -12,6 +12,7 @@ class AccessUpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return auth()->user()->can(match ($this->method()) {
+            'POST' => 'create-roles_and_permissions',
             'PUT' => 'edit-roles_and_permissions',
             'DELETE' => 'delete-roles_and_permissions',
             default => 'avoid',
@@ -25,8 +26,11 @@ class AccessUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return match ($this->method()) {
+            'POST' => [
+                'name' => 'required|string|unique:roles,name',
+            ],
+            default => [],
+        };
     }
 }

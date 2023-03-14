@@ -21,8 +21,6 @@ export default function Dashboard(props) {
 
     return (
         <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
             header="Courses"
             active="courses"
             breadcrumbs={[

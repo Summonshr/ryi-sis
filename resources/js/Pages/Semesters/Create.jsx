@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useForm } from '@inertiajs/react';
 
-export default function Dashboard({ auth, errors: error, meta }) {
+export default function Dashboard({ meta }) {
     const { data, setData, post, processing, errors } = useForm({
         action: 'create',
         season_id: '',
@@ -21,12 +21,10 @@ export default function Dashboard({ auth, errors: error, meta }) {
     }
     return (
         <AuthenticatedLayout
-            auth={auth}
             header="Semesters"
-            errors={error}
             active="semesters"
             breadcrumbs={[
-                { name: 'Semesters', href: route('taxonomy.get','semesters'), current: false },
+                { name: 'Semesters', href: route('taxonomy.get', 'semesters'), current: false },
                 { name: 'Create semester', href: '#', current: true },
             ]}
         >
